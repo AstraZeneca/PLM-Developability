@@ -1,0 +1,27 @@
+## PolyReactivity dataset — LoRA CE fine-tune
+mode: lora_ce
+
+data_dir: "data/poly"
+log_dir: "output/poly"
+target_column: "label"
+seq_col: "full_seq"
+train_file: "vhh_splitB_prevalence_train.csv"
+val_file: "vhh_splitB_prevalence_val.csv"
+test_file: "vhh_splitB_prevalence_test.csv"
+
+plms: [ 'saprot-seq-pdb', 'esm.t33-650m' ]
+
+# LoRA fine-tuning settings
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.1
+lora_epochs: 5
+lora_batch_size: 8
+lora_lr: 1e-4
+lora_infer_batch_size: 16
+use_class_weights: true
+
+# PLM paths
+local_saprot_dir_af2: "models/SaProt_650M_AF2"
+local_saprot_dir_pdb: "models/SaProt_650M_PDB"
+chunk_size: 100

@@ -1,0 +1,23 @@
+## Zero-shot LLR benchmark
+## Scores each sequence with WT-relative masked pseudo-log-likelihood.
+## wt_seq must be the full VH-VL sequence in the same format as the data column 'VH-VL'.
+
+data_dir: "data/Flab-curate"
+log_dir: "output/Flab"
+target_column_binary: "binary_ERlabel"
+target_column_scores: "ER_median" # continuous target for Spearman; set to null to skip
+train_file: "Train_3H.csv"
+test_file: "Test_1H.csv"
+
+# WT sequence — full VH-VL format (the same seq_cut applied in the script will be applied here too)
+wt_seq: "EVKLDETGGGLVQPGRPMKLSCVASGFTFSDYWMNWVRQSPEKGLEWVAQIRNKPYNYETYYSDSVKGRFTISRDDSKSSVYLQMNNLRVEDMGIYYCTGSYYGMDYWGQGTSVTVS-DVVMTQTPLSLPVSLGDQASISCRSSQSLVHSNGNTYLRWYLQKPGQSPKVLIYKVSNRFSGVPDRFSGSGSGTDFTLKISRVEAEDLGVYFCSQSTHVPWTFGGGTKLEIK"
+
+# PLMs to score
+plms: [ 'esm.t33-650m', 'saprot-seq-pdb' ]
+
+# SaProt model directories
+local_saprot_dir_af2: "models/SaProt_650M_AF2"
+local_saprot_dir_pdb: "models/SaProt_650M_PDB"
+
+# Batch size for WT precomputation (number of masked sequences per forward call)
+chunk_size: 10

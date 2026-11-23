@@ -1,0 +1,51 @@
+## Poly dataset — LoRA CE fine-tune → re-embed → TIMPoly (DeepFeatureMLP)
+mode: lora_tim
+
+data_dir: "data/Flab-curate"
+log_dir: "output/Flab"
+target_column: "binary_ERlabel"
+train_file: "Train_Random.csv"
+val_file: "Val_Random.csv"
+test_file: "Test_Random.csv"
+
+plms: [ 'esm.t33-650m' ]
+# plms: [ 'esm.t33-650m', 'saprot-seq-pdb' ]
+# plms: [ 'onehot', 'esm.t33-650m', 'saprot-seq-pdb' ]
+# tim_model_paths:
+# - "/Users/kwgc666/Developer/output/poly/models/best_FT-Alpha-TIM_Saprot-seq-PDB_poly_Train_poly_imbalanced_Test_poly_imbalanced-SGD.pt"
+# - "/Users/kwgc666/Developer/output/poly/models/best_FT-Alpha-TIM_ESM-t33-650M_poly_Train_poly_imbalanced_Test_poly_imbalanced-SGD.pt"
+seeds:
+- 2025
+- 2026
+- 2027
+
+temp: 15.0
+loss_weights: [ 1.0, 0.5, 0.1 ]
+lr: 1e-4
+iter: 20000
+xfrom_iter: 30
+lr_scale: 0.1
+trans: True
+update_feat: True
+plot: False
+ft: 'mlp'
+# entropies: [ 'Shannon', 'Alpha', 'Alpha' ]
+entropies: [ 'Shannon', 'Shannon', 'Alpha' ]
+# prior_type: 'oracle'
+# prior_update: []
+# prior_type: [ 0.80, 0.20 ]
+prior_type: 'model'
+prior_update: [ 1, 10, 20, 30, 50, 100, 200, 300, 500 ]
+
+alphas: [ 1.0, 1.0, 2.0 ]
+
+# PLM paths
+local_saprot_dir_af2: "models/SaProt_650M_AF2"
+local_saprot_dir_pdb: "models/SaProt_650M_PDB"
+chunk_size: 100
+
+# Minibatch adaptation (Stage 2)
+batch_threshold: 50000
+batch_size: 4096
+epoch_model_freq: 0
+plot_tsne_max_samples: 15000

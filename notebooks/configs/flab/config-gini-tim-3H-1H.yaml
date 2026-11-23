@@ -1,0 +1,29 @@
+## Flab — GINI-TIM
+data_dir: "data/Flab-curate"
+log_dir: "output/Flab"
+target_column: "binary_ERlabel"
+
+train_file: "Train_3H.csv"
+test_file: "Test_1H.csv"
+
+plms: [ 'esm.t33-650m', 'saprot-seq-pdb' ]
+
+seeds:
+- 2025
+- 2026
+- 2027
+
+loss_weights: [ 1.0, 0.5, 0.1 ]
+update_feat: False
+ft: 'mlp'
+
+entropies: [ 'Shannon', 'Shannon', 'Alpha' ]
+prior_type: 'model'
+prior_update: [ 1, 10, 20, 30, 50, 100, 200, 300, 500 ]
+
+alphas: [ 1.0, 1.0, 2.0 ]
+
+# Saprot
+local_saprot_dir_af2: "models/SaProt_650M_AF2"
+local_saprot_dir_pdb: "models/SaProt_650M_PDB"
+chunk_size: 100
