@@ -1,0 +1,2 @@
+# Remove lfs filter — foldseek binary is excluded via .gitignore
+models/SaProt/bin/foldseek -filter=lfs -diff=lfs -merge=lfs text
